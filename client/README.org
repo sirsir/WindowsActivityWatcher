@@ -1,0 +1,81 @@
+# =============  OUTDATED ==========================
+
+
+#+TITLE: Amivoice Watcher 2
+#+OPTIONS: toc:nil title:t
+
+# --SOURCE FILE for README.md
+# --To export to *.md >> C-c C-e m m
+
+
+
+* Development datails
+** Environment & Dependency
+*** Language :: C#.NET
+*** IDE :: Visual Studio
+*** External Library :: 
+**** FFMPEG
+**** log4net
+**** ini-parser
+**** ScapLIB :: NOT used now due
+*** Application Type :: Systray Application
+1. Application that does not have main windows but systray icon
+2. Note :: Service app can not has systray or any GUI interface
+*** Config
+http://192.168.1.88:3002/users/sign_in
+
+* Functions
+** Desktop Activity Monitor
+*** Submit computer info to a server
+**** PC details ::
++ IP
++ Login Name
++ Mac address
++ Computer Name
++ Domain Name
++ OS info
+**** WHEN?
+***** logon
+***** logoff
+***** every config. interval
+*** Window Active Monitor
+**** Record client's openning window details and submit it to the server
+**** Window Details ::
++ window_title
++ process.exe
++ process name
++ times :: Activated time and duration
+** Desktop Screen Record
+*** Capture the client desktop, record it and submit/record in the server
+**** HOW?
++ Capture screen (screenshot) periodly as often as congig value FPS ::Frame Per Sec
++ Make VDO files from the screenshots as often as config value screencapture.record.timer.sec
++ Upload VDO files to the server
+
+** Notification :: NOT YET IMPLEMENTED
+
+* Developer Notes
+
+** Programming Flows
+*** Check if program already run or not, if not then start program.
+*** Initialize and show icon on notification (tray) bar
+- Menu :: 
+    + Open log file
+    + Open configuration file
+    + Open log configuration file 
+    + Version dialog (+Computer Info)
+*** Load configuration files
+
+- sources (priority from highest to lowest order)
+
+- configuration.txt from server (url from registry)
+- configuration.txt in Users\{{username}}\AppData\Local\AmivoiceWatcher load from the first one
+- AmivoiceWatcher.ini in same folder as AmivoiceWatcher.exe
+- Hardcode in Globals.cs
+*** Intitialize and run threads/for each subfunctions
+**** Submit computer info on program start event
+**** Submit computer info on program close event (include sitution when PC is logoff or turnoff)
+**** Start threads to monitor client windows activity
+**** Start threads to capture client screen
+** References
+*** https://docs.google.com/presentation/d/1oPrsfv3cKnfPctTa17u_IUvGMjvGTx7z5cYHBQyw4VQ/edit?ts=57e8f231#slide=id.p
